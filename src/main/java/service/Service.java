@@ -103,6 +103,14 @@ public class Service {
         return studentFileRepository.findAll();
     }
 
+    public int getStudNr(){
+        int counter = 0;
+        for(Student stud:studentFileRepository.findAll()){
+            counter++;
+        }
+        return counter;
+    }
+
     /**
      * Adauga o tema noua
      * @param tema  - tema pe care o adauga
