@@ -3,6 +3,7 @@ package ssvv.example;
 import static org.junit.Assert.assertTrue;
 
 import domain.Student;
+import domain.Tema;
 import org.junit.Test;
 import repository.NotaXMLRepo;
 import repository.StudentXMLRepo;
@@ -280,6 +281,79 @@ public class AppTest
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void addAsignmentTest1(){
+        try{
+        Tema tema = new Tema("","desc1",12,9);
+        assert service.addTema(tema) == tema;}
+        catch (ValidationException e) {
+            assert e.toString().equals("validation.ValidationException: Numar tema invalid!");
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void addAsignmentTest2(){
+        try{
+            Tema tema = new Tema("22","",12,9);
+            assert service.addTema(tema) == tema;}
+        catch (ValidationException e) {
+            assert e.toString().equals("validation.ValidationException: Descriere invalida!");
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void addAsignmentTest3(){
+        try{
+            Tema tema = new Tema("22","desc1",-15,9);
+            assert service.addTema(tema) == tema;}
+        catch (ValidationException e) {
+            assert e.toString().equals("validation.ValidationException: Deadlineul trebuie sa fie intre 1-14.");
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void addAsignmentTest4(){
+        try{
+            Tema tema = new Tema("22","desc1",16,9);
+            assert service.addTema(tema) == tema;}
+        catch (ValidationException e) {
+            assert e.toString().equals("validation.ValidationException: Deadlineul trebuie sa fie intre 1-14.");
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void addAsignmentTest5(){
+        try{
+            Tema tema = new Tema("22","desc1",12,-1);
+            assert service.addTema(tema) == tema;}
+        catch (ValidationException e) {
+            assert e.toString().equals("validation.ValidationException: Saptamana primirii trebuie sa fie intre 1-14.");
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void addAsignmentTest6(){
+        try{
+            Tema tema = new Tema("22","desc1",12,15);
+            assert service.addTema(tema) == tema;}
+        catch (ValidationException e) {
+            assert e.toString().equals("validation.ValidationException: Saptamana primirii trebuie sa fie intre 1-14.");
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void addAsignmentTest7(){
+        Tema tema = new Tema("22","desc1",13,9);
+        assert service.addTema(tema) == tema;
+    }
+
 
 
 }
